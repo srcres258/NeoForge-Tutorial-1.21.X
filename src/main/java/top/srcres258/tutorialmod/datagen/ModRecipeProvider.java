@@ -26,28 +26,59 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.BISMUTH_BLOCK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.BISMUTH_BLOCK)
                 .pattern("BBB")
                 .pattern("BBB")
                 .pattern("BBB")
-                .define('B', ModItems.BISMUTH.get())
+                .define('B', ModItems.BISMUTH)
                 .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
                 .save(recipeOutput);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BISMUTH.get(), 9)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BISMUTH, 9)
                 .requires(ModBlocks.BISMUTH_BLOCK)
                 .unlockedBy("has_bismuth_block", has(ModBlocks.BISMUTH_BLOCK))
                 .save(recipeOutput);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BISMUTH.get(), 18)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BISMUTH, 18)
                 .requires(ModBlocks.MAGIC_BLOCK)
                 .unlockedBy("has_magic_block", has(ModBlocks.MAGIC_BLOCK))
                 .save(recipeOutput, "tutorialmod:bismuth_from_magic_block");
 
-        oreSmelting(recipeOutput, BISMUTH_SMELTABLES, RecipeCategory.MISC, ModItems.BISMUTH.get(),
+        oreSmelting(recipeOutput, BISMUTH_SMELTABLES, RecipeCategory.MISC, ModItems.BISMUTH,
                 0.25F, 200, "bismuth");
-        oreBlasting(recipeOutput, BISMUTH_SMELTABLES, RecipeCategory.MISC, ModItems.BISMUTH.get(),
+        oreBlasting(recipeOutput, BISMUTH_SMELTABLES, RecipeCategory.MISC, ModItems.BISMUTH,
                 0.25F, 100, "bismuth");
+
+        stairBuilder(ModBlocks.BISMUTH_STAIRS, Ingredient.of(ModItems.BISMUTH))
+                .group("bismuth")
+                .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
+                .save(recipeOutput);
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, ModBlocks.BISMUTH_SLAB, ModItems.BISMUTH);
+
+        buttonBuilder(ModBlocks.BISMUTH_BUTTON, Ingredient.of(ModItems.BISMUTH))
+                .group("bismuth")
+                .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
+                .save(recipeOutput);
+        pressurePlate(recipeOutput, ModBlocks.BISMUTH_PRESSURE_PLATE, ModItems.BISMUTH);
+
+        fenceBuilder(ModBlocks.BISMUTH_FENCE, Ingredient.of(ModItems.BISMUTH))
+                .group("bismuth")
+                .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
+                .save(recipeOutput);
+        fenceGateBuilder(ModBlocks.BISMUTH_FENCE_GATE, Ingredient.of(ModItems.BISMUTH))
+                .group("bismuth")
+                .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
+                .save(recipeOutput);
+        wall(recipeOutput, RecipeCategory.BUILDING_BLOCKS, ModBlocks.BISMUTH_WALL, ModItems.BISMUTH);
+
+        doorBuilder(ModBlocks.BISMUTH_DOOR, Ingredient.of(ModItems.BISMUTH))
+                .group("bismuth")
+                .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
+                .save(recipeOutput);
+        trapdoorBuilder(ModBlocks.BISMUTH_TRAPDOOR, Ingredient.of(ModItems.BISMUTH))
+                .group("bismuth")
+                .unlockedBy("has_bismuth", has(ModItems.BISMUTH))
+                .save(recipeOutput);
     }
 
     protected static void oreSmelting(
