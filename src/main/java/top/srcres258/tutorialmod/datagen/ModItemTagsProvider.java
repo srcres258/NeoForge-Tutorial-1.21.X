@@ -38,5 +38,11 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.SHOVELS).add(ModItems.BISMUTH_SHOVEL.get());
         tag(ItemTags.AXES).add(ModItems.BISMUTH_AXE.get());
         tag(ItemTags.HOES).add(ModItems.BISMUTH_HOE.get());
+
+        tag(ItemTags.TRIMMABLE_ARMOR)
+                .add(ModItems.BISMUTH_HELMET.get())
+                .add(ModItems.BISMUTH_CHESTPLATE.get())
+                .add(ModItems.BISMUTH_LEGGINGS.get())
+                .add(ModItems.BISMUTH_BOOTS.get());
     }
 }
