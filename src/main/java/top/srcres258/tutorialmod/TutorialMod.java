@@ -21,6 +21,7 @@ import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.component.ModDataComponents;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
 import top.srcres258.tutorialmod.item.ModItems;
+import top.srcres258.tutorialmod.sound.ModSounds;
 import top.srcres258.tutorialmod.util.ModItemProperties;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -44,6 +45,7 @@ public class TutorialMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModDataComponents.register(modEventBus);
+        ModSounds.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

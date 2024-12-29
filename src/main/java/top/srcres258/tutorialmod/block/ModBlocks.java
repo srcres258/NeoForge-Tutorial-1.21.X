@@ -14,6 +14,7 @@ import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.block.custom.BismuthLampBlock;
 import top.srcres258.tutorialmod.block.custom.MagicBlock;
 import top.srcres258.tutorialmod.item.ModItems;
+import top.srcres258.tutorialmod.sound.ModSounds;
 
 import java.util.function.Supplier;
 
@@ -42,7 +43,8 @@ public class ModBlocks {
             () -> new MagicBlock(BlockBehaviour.Properties.of()
                     .strength(2f)
                     .requiresCorrectToolForDrops()
-                    .noLootTable()));
+                    .noLootTable()
+                    .sound(ModSounds.MAGIC_BLOCK_SOUNDS)));
 
     public static final DeferredBlock<StairBlock> BISMUTH_STAIRS = registerBlock("bismuth_stairs",
             () -> new StairBlock(ModBlocks.BISMUTH_BLOCK.get().defaultBlockState(),
