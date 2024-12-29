@@ -21,6 +21,7 @@ import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.component.ModDataComponents;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
 import top.srcres258.tutorialmod.item.ModItems;
+import top.srcres258.tutorialmod.util.ModItemProperties;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(TutorialMod.MOD_ID)
@@ -79,7 +80,7 @@ public class TutorialMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            ModItemProperties.addCustomItemProperties();
         }
     }
 }
