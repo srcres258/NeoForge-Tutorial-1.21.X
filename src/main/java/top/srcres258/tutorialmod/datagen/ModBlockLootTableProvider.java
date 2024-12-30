@@ -9,6 +9,8 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
@@ -55,6 +57,26 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RadishCropBlock.AGE, 3));
         add(ModBlocks.RADISH_CROP.get(), createCropDrops(ModBlocks.RADISH_CROP.get(),
                 ModItems.RADISH.asItem(), ModItems.RADISH_SEEDS.get(), lootItemConditionBuilder));
+
+        var registryLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
+        add(ModBlocks.GOJI_BERRY_BUSH.get(), block -> applyExplosionDecay(
+                block,
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.GOJI_BERRY_BUSH.get())
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(SweetBerryBushBlock.AGE, 3)))
+                                .add(LootItem.lootTableItem(ModItems.GOJI_BERRIES))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE))))
+                        .withPool(LootPool.lootPool()
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.GOJI_BERRY_BUSH.get())
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(SweetBerryBushBlock.AGE, 2)))
+                                .add(LootItem.lootTableItem(ModItems.GOJI_BERRIES))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE))))
+        ));
     }
 
     protected LootTable.Builder createMultipleOreDrops(

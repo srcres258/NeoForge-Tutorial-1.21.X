@@ -12,6 +12,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.block.custom.BismuthLampBlock;
+import top.srcres258.tutorialmod.block.custom.GojiBerryBushBlock;
 import top.srcres258.tutorialmod.block.custom.MagicBlock;
 import top.srcres258.tutorialmod.block.custom.RadishCropBlock;
 import top.srcres258.tutorialmod.item.ModItems;
@@ -85,6 +86,9 @@ public class ModBlocks {
     // Crop items are defined and registered in ModItems class.
     public static final DeferredBlock<Block> RADISH_CROP = BLOCKS.register("radish_crop",
             () -> new RadishCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS))); // NOTE: Blocks.WHEAT can also be used here, but NOT going to work after MC 1.21.3.
+
+    public static final DeferredBlock<Block> GOJI_BERRY_BUSH = BLOCKS.register("goji_berry_bush",
+            () -> new GojiBerryBushBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(
             String name,
