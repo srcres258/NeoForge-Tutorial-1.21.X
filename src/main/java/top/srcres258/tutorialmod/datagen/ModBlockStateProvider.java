@@ -2,6 +2,8 @@ package top.srcres258.tutorialmod.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -10,6 +12,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.block.custom.BismuthLampBlock;
+import top.srcres258.tutorialmod.block.custom.RadishCropBlock;
 
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -53,6 +56,23 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.BISMUTH_TRAPDOOR, "_bottom");
 
         customLamp();
+
+        makeCrop(((CropBlock) ModBlocks.RADISH_CROP.get()), "radish_crop_stage", "radish_crop_stage");
+    }
+
+    public void makeCrop(CropBlock block, String modelName, String textureName) {
+        Function<BlockState, ConfiguredModel[]> function = state -> states(state, block, modelName, textureName);
+
+        getVariantBuilder(block).forAllStates(function);
+    }
+
+    private ConfiguredModel[] states(BlockState state, CropBlock block, String modelName, String textureName) {
+        var models = new ConfiguredModel[1];
+        models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((RadishCropBlock) block).getAgeProperty()),
+                ResourceLocation.fromNamespaceAndPath(TutorialMod.MOD_ID, "block/" + textureName + state.getValue(((RadishCropBlock) block).getAgeProperty())))
+                .renderType("cutout"));
+
+        return models;
     }
 
     private void customLamp() {

@@ -13,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.block.custom.BismuthLampBlock;
 import top.srcres258.tutorialmod.block.custom.MagicBlock;
+import top.srcres258.tutorialmod.block.custom.RadishCropBlock;
 import top.srcres258.tutorialmod.item.ModItems;
 import top.srcres258.tutorialmod.sound.ModSounds;
 
@@ -78,6 +79,12 @@ public class ModBlocks {
                     .strength(2F)
                     .requiresCorrectToolForDrops()
                     .lightLevel(state -> state.getValue(BismuthLampBlock.CLICKED) ? 15 : 0)));
+
+    // Call BLOCKS.register instead of registerBlock to avoid registering a block item since crops need the seed items
+    // rather than the block items of corresponding blocks.
+    // Crop items are defined and registered in ModItems class.
+    public static final DeferredBlock<Block> RADISH_CROP = BLOCKS.register("radish_crop",
+            () -> new RadishCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS))); // NOTE: Blocks.WHEAT can also be used here, but NOT going to work after MC 1.21.3.
 
     private static <T extends Block> DeferredBlock<T> registerBlock(
             String name,

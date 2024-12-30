@@ -1,5 +1,6 @@
 package top.srcres258.tutorialmod.datagen;
 
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -12,8 +13,10 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import top.srcres258.tutorialmod.block.ModBlocks;
+import top.srcres258.tutorialmod.block.custom.RadishCropBlock;
 import top.srcres258.tutorialmod.item.ModItems;
 
 import java.util.Set;
@@ -47,6 +50,11 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         add(ModBlocks.BISMUTH_DOOR.get(), block -> createDoorTable(ModBlocks.BISMUTH_DOOR.get()));
 
         dropSelf(ModBlocks.BISMUTH_LAMP.get());
+
+        var lootItemConditionBuilder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.RADISH_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(RadishCropBlock.AGE, 3));
+        add(ModBlocks.RADISH_CROP.get(), createCropDrops(ModBlocks.RADISH_CROP.get(),
+                ModItems.RADISH.asItem(), ModItems.RADISH_SEEDS.get(), lootItemConditionBuilder));
     }
 
     protected LootTable.Builder createMultipleOreDrops(
