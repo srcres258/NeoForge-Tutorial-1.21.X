@@ -8,12 +8,15 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.item.custom.HammerItem;
+import top.srcres258.tutorialmod.potion.ModPotions;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -57,5 +60,12 @@ public class ModEvents {
                 player.getMainHandItem().shrink(1);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onRegisterBrewingRecipes(RegisterBrewingRecipesEvent event) {
+        var builder = event.getBuilder();
+
+        builder.addMix(Potions.AWKWARD, Items.SLIME_BALL, ModPotions.SLIMEY_POTION);
     }
 }
