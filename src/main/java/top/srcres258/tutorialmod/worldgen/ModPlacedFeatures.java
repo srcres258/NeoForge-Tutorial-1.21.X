@@ -9,9 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.*;
 import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.block.ModBlocks;
 
@@ -27,6 +25,9 @@ public class ModPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> BLOODWOOD_PLACED_KEY =
             registerKey("bloodwood_placed");
+
+    public static final ResourceKey<PlacedFeature> GOJI_BERRY_BUSH_PLACED_KEY =
+            registerKey("goji_berry_bush_placed");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -53,9 +54,15 @@ public class ModPlacedFeatures {
         // 2. The `chance` parameter within the countExtra method must meet the requirement that the result it divides
         //    1.0 **must** be finite decimal. Otherwise an exception will be thrown such that Minecraft will **not**
         //    accept this kind of value.
-        register(context, BLOODWOOD_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.BLOODWOOD_KEY),
+        register(context, BLOODWOOD_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.BLOODWOOD_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 2),
                         ModBlocks.BLOODWOOD_SAPLING.get()));
+
+        register(context, GOJI_BERRY_BUSH_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.GOJI_BERRY_BUSH_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(),
+                        PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
