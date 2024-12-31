@@ -5,11 +5,17 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import top.srcres258.tutorialmod.TutorialMod;
@@ -38,6 +44,9 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> END_BISMUTH_ORE_KEY =
             registerKey("end_bismuth_ore");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BLOODWOOD_KEY =
+            registerKey("bloodwood");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         var stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         var deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -54,6 +63,14 @@ public class ModConfiguredFeatures {
                 ModBlocks.BISMUTH_NETHER_ORE.get().defaultBlockState(), 9));
         register(context, END_BISMUTH_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables,
                 ModBlocks.BISMUTH_NETHER_ORE.get().defaultBlockState(), 9));
+
+        register(context, BLOODWOOD_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(ModBlocks.BLOODWOOD_LOG.get()),
+                new FancyTrunkPlacer(4, 4, 3),
+                BlockStateProvider.simple(ModBlocks.BLOODWOOD_LEAVES.get()),
+                new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(3), 3),
+                new TwoLayersFeatureSize(1, 0, 2)
+        ).build());
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {

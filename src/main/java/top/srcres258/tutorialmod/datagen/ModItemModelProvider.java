@@ -77,6 +77,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.RADISH_SEEDS.get());
 
         basicItem(ModItems.GOJI_BERRIES.get());
+
+        saplingItem(ModBlocks.BLOODWOOD_SAPLING);
+    }
+
+    private ItemModelBuilder saplingItem(DeferredBlock<Block> block) {
+        return withExistingParent(block.getId().getPath(),
+                ResourceLocation.parse("item/generated"))
+                        .texture("layer0",
+                                ResourceLocation.fromNamespaceAndPath(TutorialMod.MOD_ID,
+                                        "block/" + block.getId().getPath()));
     }
 
     private void trimmedArmorItem(DeferredItem<ArmorItem> itemDeferredItem) {

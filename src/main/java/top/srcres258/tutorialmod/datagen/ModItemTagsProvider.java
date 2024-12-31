@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import top.srcres258.tutorialmod.TutorialMod;
+import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.item.ModItems;
 import top.srcres258.tutorialmod.util.ModTags;
 
@@ -50,5 +51,14 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
         tag(ItemTags.TRIM_TEMPLATES)
                 .add(ModItems.KAUPEN_SMITHING_TEMPLATE.get());
+
+        tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.BLOODWOOD_LEAVES.asItem())
+                .add(ModBlocks.BLOODWOOD_WOOD.asItem())
+                .add(ModBlocks.STRIPPED_BLOODWOOD_LOG.asItem())
+                .add(ModBlocks.STRIPPED_BLOODWOOD_WOOD.asItem());
+
+        tag(ItemTags.PLANKS)
+                .add(ModBlocks.BLOODWOOD_PLANKS.asItem());
     }
 }
