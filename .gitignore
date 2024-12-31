@@ -27,3 +27,6 @@ repo
 
 # generated sources
 /src/generated
+
+# quilt files
+/series
