@@ -32,11 +32,17 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         dropSelf(ModBlocks.BISMUTH_BLOCK.get());
 
-        add(ModBlocks.BISMUTH_ORE.get(), block -> createOreDrop(
-                ModBlocks.BISMUTH_ORE.get(), ModItems.RAW_BISMUTH.get()));
-        add(ModBlocks.BISMUTH_DEEPSLATE_ORE.get(), block -> createMultipleOreDrops(
-                ModBlocks.BISMUTH_DEEPSLATE_ORE.get(), ModItems.RAW_BISMUTH.get(),
-                2F, 5F));
+        add(ModBlocks.BISMUTH_ORE.get(),
+                block -> createOreDrop(ModBlocks.BISMUTH_ORE.get(), ModItems.RAW_BISMUTH.get()));
+        add(ModBlocks.BISMUTH_DEEPSLATE_ORE.get(),
+                block -> createMultipleOreDrops(ModBlocks.BISMUTH_DEEPSLATE_ORE.get(), ModItems.RAW_BISMUTH.get(),
+                        2F, 5F));
+        add(ModBlocks.BISMUTH_END_ORE.get(),
+                block -> createMultipleOreDrops(ModBlocks.BISMUTH_END_ORE.get(), ModItems.RAW_BISMUTH.get(),
+                        3F, 6F));
+        add(ModBlocks.BISMUTH_NETHER_ORE.get(),
+                block -> createMultipleOreDrops(ModBlocks.BISMUTH_NETHER_ORE.get(), ModItems.RAW_BISMUTH.get(),
+                        4F, 8F));
 
         dropSelf(ModBlocks.BISMUTH_STAIRS.get());
         add(ModBlocks.BISMUTH_SLAB.get(), block -> createSlabItemTable(ModBlocks.BISMUTH_SLAB.get()));

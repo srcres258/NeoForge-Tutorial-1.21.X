@@ -30,6 +30,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(ModBlocks.BISMUTH_ORE);
         blockWithItem(ModBlocks.BISMUTH_DEEPSLATE_ORE);
+        blockWithItem(ModBlocks.BISMUTH_END_ORE);
+        blockWithItem(ModBlocks.BISMUTH_NETHER_ORE);
 
         blockWithItem(ModBlocks.MAGIC_BLOCK);
 
