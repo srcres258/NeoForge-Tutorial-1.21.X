@@ -18,12 +18,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           arguments: build
 
-      - name: Generate Mod Data
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          arguments: runData
+      - name: Build with Gradle - Generate Mod Data
+        run: ./gradlew runData
