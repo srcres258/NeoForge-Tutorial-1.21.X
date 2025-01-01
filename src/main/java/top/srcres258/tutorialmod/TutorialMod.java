@@ -1,5 +1,6 @@
 package top.srcres258.tutorialmod;
 
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 
@@ -21,6 +22,8 @@ import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.component.ModDataComponents;
 import top.srcres258.tutorialmod.effect.ModEffects;
 import top.srcres258.tutorialmod.enchantment.ModEnchantmentEffects;
+import top.srcres258.tutorialmod.entity.ModEntities;
+import top.srcres258.tutorialmod.entity.client.GeckoRenderer;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
 import top.srcres258.tutorialmod.item.ModItems;
 import top.srcres258.tutorialmod.potion.ModPotions;
@@ -52,6 +55,7 @@ public class TutorialMod {
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
         ModEnchantmentEffects.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -89,6 +93,8 @@ public class TutorialMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
+
+            EntityRenderers.register(ModEntities.GECKO.get(), GeckoRenderer::new);
         }
     }
 }
