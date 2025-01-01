@@ -1,9 +1,13 @@
 package top.srcres258.tutorialmod.entity.custom;
 
+import net.minecraft.Util;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -11,12 +15,17 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
+import top.srcres258.tutorialmod.entity.GeckoVariant;
 import top.srcres258.tutorialmod.entity.ModEntities;
 import top.srcres258.tutorialmod.item.ModItems;
 
 public class GeckoEntity extends Animal {
     public static final AnimationState idleAnimationState = new AnimationState();
+
+    private static final EntityDataAccessor<Integer> VARIANT =
+            SynchedEntityData.defineId(GeckoEntity.class, EntityDataSerializers.INT);
 
     private int idleAnimationTimeout = 0;
 
@@ -54,7 +63,10 @@ public class GeckoEntity extends Animal {
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return ModEntities.GECKO.get().create(level);
+        var variant = Util.getRandom(GeckoVariant.values(), random);
+        var baby = ModEntities.GECKO.get().create(level);
+        baby.setVariant(variant);
+        return baby;
     }
 
     private void setupAnimationStates() {
@@ -73,5 +85,48 @@ public class GeckoEntity extends Animal {
         if (level().isClientSide()) {
             setupAnimationStates();
         }
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+    }
+
+    private int getTypeVariant() {
+        return entityData.get(VARIANT);
+    }
+
+    public GeckoVariant getVariant() {
+        return GeckoVariant.byId(getTypeVariant() & 0xFF);
+    }
+
+    private void setVariant(GeckoVariant variant) {
+        entityData.set(VARIANT, variant.getId() & 0xFF);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", getTypeVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        entityData.set(VARIANT, compound.getInt("Variant"));
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(
+            ServerLevelAccessor level,
+            DifficultyInstance difficulty,
+            MobSpawnType spawnType,
+            @Nullable SpawnGroupData spawnGroupData
+    ) {
+        var variant = Util.getRandom(GeckoVariant.values(), random);
+        setVariant(variant);
+
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 }
