@@ -10,10 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import top.srcres258.tutorialmod.TutorialMod;
 import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.entity.ModEntities;
-import top.srcres258.tutorialmod.item.custom.ChiselItem;
-import top.srcres258.tutorialmod.item.custom.FuelItem;
-import top.srcres258.tutorialmod.item.custom.HammerItem;
-import top.srcres258.tutorialmod.item.custom.ModArmorItem;
+import top.srcres258.tutorialmod.item.custom.*;
 import top.srcres258.tutorialmod.sound.ModSounds;
 
 import java.util.List;
@@ -98,6 +95,9 @@ public class ModItems {
     public static final DeferredItem<Item> GECKO_SPAWN_EGG = ITEMS.register("gecko_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.GECKO, 0x31AFAF, 0xFFAC00,
                     new Item.Properties()));
+
+    public static final DeferredItem<Item> TOMAHAWK = ITEMS.register("tomahawk",
+            () -> new TomahawkItem(new Item.Properties().stacksTo(16)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

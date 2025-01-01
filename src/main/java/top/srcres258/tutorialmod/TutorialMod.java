@@ -24,6 +24,7 @@ import top.srcres258.tutorialmod.effect.ModEffects;
 import top.srcres258.tutorialmod.enchantment.ModEnchantmentEffects;
 import top.srcres258.tutorialmod.entity.ModEntities;
 import top.srcres258.tutorialmod.entity.client.GeckoRenderer;
+import top.srcres258.tutorialmod.entity.client.TomahawkProjectileRenderer;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
 import top.srcres258.tutorialmod.item.ModItems;
 import top.srcres258.tutorialmod.potion.ModPotions;
@@ -95,6 +96,7 @@ public class TutorialMod {
             ModItemProperties.addCustomItemProperties();
 
             EntityRenderers.register(ModEntities.GECKO.get(), GeckoRenderer::new);
+            EntityRenderers.register(ModEntities.TOMAHAWK.get(), TomahawkProjectileRenderer::new);
         }
     }
 }
