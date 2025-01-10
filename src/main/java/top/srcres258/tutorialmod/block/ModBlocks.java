@@ -151,6 +151,9 @@ public class ModBlocks {
                     BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING),
                     () -> Blocks.NETHERRACK));
 
+    public static final DeferredBlock<Block> CHAIR = registerBlock("chair",
+            () -> new ChairBlock(BlockBehaviour.Properties.of().noOcclusion()));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(
             String name,
             Supplier<T> block
