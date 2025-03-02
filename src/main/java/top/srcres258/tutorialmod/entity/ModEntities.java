@@ -6,6 +6,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import top.srcres258.tutorialmod.TutorialMod;
+import top.srcres258.tutorialmod.entity.custom.ChairEntity;
 import top.srcres258.tutorialmod.entity.custom.GeckoEntity;
 import top.srcres258.tutorialmod.entity.custom.TomahawkProjectileEntity;
 
@@ -25,6 +26,11 @@ public class ModEntities {
                     .<TomahawkProjectileEntity>of(TomahawkProjectileEntity::new, MobCategory.MISC)
                     .sized(0.5F, 1.15F)
                     .build("tomahawk"));
+
+    public static final Supplier<EntityType<ChairEntity>> CHAIR_ENTITY =
+            ENTITY_TYPES.register("chair_entity", () -> EntityType.Builder.of(ChairEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .build("chair_entity"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

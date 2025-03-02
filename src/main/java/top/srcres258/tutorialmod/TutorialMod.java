@@ -23,6 +23,7 @@ import top.srcres258.tutorialmod.component.ModDataComponents;
 import top.srcres258.tutorialmod.effect.ModEffects;
 import top.srcres258.tutorialmod.enchantment.ModEnchantmentEffects;
 import top.srcres258.tutorialmod.entity.ModEntities;
+import top.srcres258.tutorialmod.entity.client.ChairRenderer;
 import top.srcres258.tutorialmod.entity.client.GeckoRenderer;
 import top.srcres258.tutorialmod.entity.client.TomahawkProjectileRenderer;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
@@ -97,6 +98,8 @@ public class TutorialMod {
 
             EntityRenderers.register(ModEntities.GECKO.get(), GeckoRenderer::new);
             EntityRenderers.register(ModEntities.TOMAHAWK.get(), TomahawkProjectileRenderer::new);
+
+            EntityRenderers.register(ModEntities.CHAIR_ENTITY.get(), ChairRenderer::new);
         }
     }
 }
