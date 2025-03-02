@@ -31,6 +31,7 @@ import top.srcres258.tutorialmod.item.ModItems;
 import top.srcres258.tutorialmod.potion.ModPotions;
 import top.srcres258.tutorialmod.sound.ModSounds;
 import top.srcres258.tutorialmod.util.ModItemProperties;
+import top.srcres258.tutorialmod.villager.ModVillagers;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(TutorialMod.MOD_ID)
@@ -58,6 +59,7 @@ public class TutorialMod {
         ModPotions.register(modEventBus);
         ModEnchantmentEffects.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModVillagers.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
