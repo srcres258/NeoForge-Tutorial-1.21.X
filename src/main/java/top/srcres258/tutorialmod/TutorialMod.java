@@ -29,6 +29,7 @@ import top.srcres258.tutorialmod.entity.client.GeckoRenderer;
 import top.srcres258.tutorialmod.entity.client.TomahawkProjectileRenderer;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
 import top.srcres258.tutorialmod.item.ModItems;
+import top.srcres258.tutorialmod.loot.ModLootModifiers;
 import top.srcres258.tutorialmod.particle.BismuthParticles;
 import top.srcres258.tutorialmod.particle.ModParticles;
 import top.srcres258.tutorialmod.potion.ModPotions;
@@ -64,6 +65,7 @@ public class TutorialMod {
         ModEntities.register(modEventBus);
         ModVillagers.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
