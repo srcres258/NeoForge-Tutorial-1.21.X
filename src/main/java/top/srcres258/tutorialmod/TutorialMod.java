@@ -2,6 +2,7 @@ package top.srcres258.tutorialmod;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -28,6 +29,8 @@ import top.srcres258.tutorialmod.entity.client.GeckoRenderer;
 import top.srcres258.tutorialmod.entity.client.TomahawkProjectileRenderer;
 import top.srcres258.tutorialmod.item.ModCreativeModeTabs;
 import top.srcres258.tutorialmod.item.ModItems;
+import top.srcres258.tutorialmod.particle.BismuthParticles;
+import top.srcres258.tutorialmod.particle.ModParticles;
 import top.srcres258.tutorialmod.potion.ModPotions;
 import top.srcres258.tutorialmod.sound.ModSounds;
 import top.srcres258.tutorialmod.util.ModItemProperties;
@@ -60,6 +63,7 @@ public class TutorialMod {
         ModEnchantmentEffects.register(modEventBus);
         ModEntities.register(modEventBus);
         ModVillagers.register(modEventBus);
+        ModParticles.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -102,6 +106,11 @@ public class TutorialMod {
             EntityRenderers.register(ModEntities.TOMAHAWK.get(), TomahawkProjectileRenderer::new);
 
             EntityRenderers.register(ModEntities.CHAIR_ENTITY.get(), ChairRenderer::new);
+        }
+
+        @SubscribeEvent
+        public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticles.BISMUTH_PARTICLES.get(), BismuthParticles.Provider::new);
         }
     }
 }

@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import top.srcres258.tutorialmod.block.ModBlocks;
 import top.srcres258.tutorialmod.component.ModDataComponents;
+import top.srcres258.tutorialmod.particle.ModParticles;
 import top.srcres258.tutorialmod.sound.ModSounds;
 
 import java.util.List;
@@ -60,6 +61,12 @@ public class ChiselItem extends Item {
                 ((ServerLevel) level).sendParticles(ParticleTypes.DOLPHIN,
                         context.getClickedPos().getX() + 0.5,
                         context.getClickedPos().getY() + 1.5,
+                        context.getClickedPos().getZ() + 0.5,
+                        5, 0, 0, 0, 3);
+
+                ((ServerLevel) level).sendParticles(ModParticles.BISMUTH_PARTICLES.get(),
+                        context.getClickedPos().getX() + 0.5,
+                        context.getClickedPos().getY() + 1.0,
                         context.getClickedPos().getZ() + 0.5,
                         5, 0, 0, 0, 3);
 
