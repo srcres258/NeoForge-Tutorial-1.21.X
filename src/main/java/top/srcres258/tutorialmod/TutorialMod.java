@@ -20,6 +20,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import top.srcres258.tutorialmod.block.ModBlocks;
+import top.srcres258.tutorialmod.block.entity.ModBlockEntities;
 import top.srcres258.tutorialmod.component.ModDataComponents;
 import top.srcres258.tutorialmod.effect.ModEffects;
 import top.srcres258.tutorialmod.enchantment.ModEnchantmentEffects;
@@ -66,6 +67,7 @@ public class TutorialMod {
         ModVillagers.register(modEventBus);
         ModParticles.register(modEventBus);
         ModLootModifiers.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
