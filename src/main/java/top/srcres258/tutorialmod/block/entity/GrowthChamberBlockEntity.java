@@ -121,7 +121,7 @@ public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvide
                 resetProgress();
             }
         } else {
-            resetProgress();
+            decreaseCraftingProgress();
         }
     }
 
@@ -137,7 +137,15 @@ public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvide
     }
 
     private void increaseCraftingProgress() {
-        progress++;
+        if (progress < maxProgress) {
+            progress++;
+        }
+    }
+
+    private void decreaseCraftingProgress() {
+        if (progress > 0) {
+            progress--;
+        }
     }
 
     private boolean hasCraftingFinished() {
