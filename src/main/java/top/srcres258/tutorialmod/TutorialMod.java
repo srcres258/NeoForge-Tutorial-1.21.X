@@ -38,6 +38,7 @@ import top.srcres258.tutorialmod.particle.BismuthParticles;
 import top.srcres258.tutorialmod.particle.ModParticles;
 import top.srcres258.tutorialmod.potion.ModPotions;
 import top.srcres258.tutorialmod.screen.ModMenuTypes;
+import top.srcres258.tutorialmod.screen.custom.GrowthChamberScreen;
 import top.srcres258.tutorialmod.screen.custom.PedestalScreen;
 import top.srcres258.tutorialmod.sound.ModSounds;
 import top.srcres258.tutorialmod.util.ModItemProperties;
@@ -131,6 +132,7 @@ public class TutorialMod {
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.PEDESTAL_MENU.get(), PedestalScreen::new);
+            event.register(ModMenuTypes.GROWTH_CHAMBER_MENU.get(), GrowthChamberScreen::new);
         }
     }
 }
