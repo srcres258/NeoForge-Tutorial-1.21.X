@@ -2,10 +2,12 @@ package top.srcres258.tutorialmod.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import top.srcres258.tutorialmod.block.entity.PedestalBlockEntity;
 
@@ -67,16 +70,22 @@ public class PedestalBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(
-            ItemStack stack,
-            BlockState state,
+    protected @NotNull ItemInteractionResult useItemOn(
+            @NotNull ItemStack stack,
+            @NotNull BlockState state,
             Level level,
-            BlockPos pos,
-            Player player,
-            InteractionHand hand,
-            BlockHitResult hitResult
+            @NotNull BlockPos pos,
+            @NotNull Player player,
+            @NotNull InteractionHand hand,
+            @NotNull BlockHitResult hitResult
     ) {
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity pedestalBlockEntity) {
+            if (player.isCrouching() && !level.isClientSide()) {
+                player.openMenu(new SimpleMenuProvider(pedestalBlockEntity,
+                        Component.literal("Pedestal")), pos);
+                return ItemInteractionResult.SUCCESS;
+            }
+
             if (pedestalBlockEntity.inventory.getStackInSlot(0).isEmpty() && !stack.isEmpty()) {
                 pedestalBlockEntity.inventory.insertItem(0, stack.copy(), false);
                 stack.shrink(1);

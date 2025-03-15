@@ -3,6 +3,7 @@ package top.srcres258.tutorialmod;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.slf4j.Logger;
 
@@ -36,6 +37,8 @@ import top.srcres258.tutorialmod.loot.ModLootModifiers;
 import top.srcres258.tutorialmod.particle.BismuthParticles;
 import top.srcres258.tutorialmod.particle.ModParticles;
 import top.srcres258.tutorialmod.potion.ModPotions;
+import top.srcres258.tutorialmod.screen.ModMenuTypes;
+import top.srcres258.tutorialmod.screen.custom.PedestalScreen;
 import top.srcres258.tutorialmod.sound.ModSounds;
 import top.srcres258.tutorialmod.util.ModItemProperties;
 import top.srcres258.tutorialmod.villager.ModVillagers;
@@ -44,7 +47,7 @@ import top.srcres258.tutorialmod.villager.ModVillagers;
 @Mod(TutorialMod.MOD_ID)
 public class TutorialMod {
     public static final String MOD_ID = "tutorialmod";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -70,6 +73,7 @@ public class TutorialMod {
         ModParticles.register(modEventBus);
         ModLootModifiers.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -122,6 +126,11 @@ public class TutorialMod {
         @SubscribeEvent
         public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL_BE.get(), PedestalBlockEntityRenderer::new);
+        }
+
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(ModMenuTypes.PEDESTAL_MENU.get(), PedestalScreen::new);
         }
     }
 }
