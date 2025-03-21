@@ -15,18 +15,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import top.srcres258.tutorialmod.item.ModItems;
+import top.srcres258.tutorialmod.recipe.GrowthChamberRecipe;
+import top.srcres258.tutorialmod.recipe.GrowthChamberRecipeInput;
+import top.srcres258.tutorialmod.recipe.ModRecipes;
 import top.srcres258.tutorialmod.screen.custom.GrowthChamberMenu;
 
-public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvider {
-    public static final ItemStack RECIPE_OUTPUT = new ItemStack(ModItems.BISMUTH.get(), 8);
+import java.util.Objects;
+import java.util.Optional;
 
+public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -125,15 +129,22 @@ public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvide
         }
     }
 
+    private @NotNull Optional<RecipeHolder<GrowthChamberRecipe>> getCurrentRecipe() {
+        var level = this.level;
+        Objects.requireNonNull(level);
+        return level.getRecipeManager().getRecipeFor(ModRecipes.GROWTH_CHAMBER_TYPE.get(),
+                new GrowthChamberRecipeInput(itemHandler.getStackInSlot(INPUT_SLOT)), level);
+    }
+
     private boolean hasRecipe() {
-        // Hardcode the recipe temporarily; will replace this with recipe data from
-        // datapacks' implementation inside Minecraft in the future.
+        var recipe = getCurrentRecipe();
+        if (recipe.isEmpty()) {
+            return false;
+        }
 
-        var output = RECIPE_OUTPUT;
+        var output = recipe.get().value().output();
 
-        return itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.RAW_BISMUTH) &&
-                canInsertAmountIntoOutputSlot(output.getCount()) &&
-                canInsertItemIntoOutputSlot(output);
+        return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
     }
 
     private void increaseCraftingProgress() {
@@ -161,7 +172,8 @@ public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvide
      * slot is capable of the coming-out output of the recipe.
      */
     private void craftItem() {
-        var output = RECIPE_OUTPUT;
+        var recipe = getCurrentRecipe();
+        var output = recipe.get().value().output();
 
         itemHandler.extractItem(INPUT_SLOT, 1, false);
         itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),

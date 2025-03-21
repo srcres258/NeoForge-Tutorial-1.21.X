@@ -37,6 +37,7 @@ import top.srcres258.tutorialmod.loot.ModLootModifiers;
 import top.srcres258.tutorialmod.particle.BismuthParticles;
 import top.srcres258.tutorialmod.particle.ModParticles;
 import top.srcres258.tutorialmod.potion.ModPotions;
+import top.srcres258.tutorialmod.recipe.ModRecipes;
 import top.srcres258.tutorialmod.screen.ModMenuTypes;
 import top.srcres258.tutorialmod.screen.custom.GrowthChamberScreen;
 import top.srcres258.tutorialmod.screen.custom.PedestalScreen;
@@ -75,6 +76,7 @@ public class TutorialMod {
         ModLootModifiers.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModRecipes.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
