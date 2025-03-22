@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public record GrowthChamberRecipe(Ingredient inputItem, ItemStack output) implements Recipe<GrowthChamberRecipeInput> {
     @Override
@@ -45,7 +46,7 @@ public record GrowthChamberRecipe(Ingredient inputItem, ItemStack output) implem
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider provider) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@Nullable Provider provider) {
         return output;
     }
 
