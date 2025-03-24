@@ -66,7 +66,7 @@ public class GrowthChamberBlockEntity extends BlockEntity implements MenuProvide
 
         @Override
         public int getCount() {
-            return itemHandler.getSlots();
+            return 2;
         }
     };
     private int progress = 0;
